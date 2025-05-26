@@ -4,11 +4,11 @@ COLLATE utf8mb4_general_ci;
 
 USE `high_school_banking_system_webpage`;
 
--- 학교
+-- 학교 테이블 생성
 CREATE TABLE `school` (
-    school_id INT PRIMARY KEY AUTO_INCREMENT,
-	school_name VARCHAR(30) NOT NULL,
-    school_address VARCHAR(255) NOT NULL,
+    school_id INT PRIMARY KEY,
+    school_name VARCHAR(30) NOT NULL,
+    address VARCHAR(255) NOT NULL,
     contact_number VARCHAR(30) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
