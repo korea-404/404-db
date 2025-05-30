@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `school` (
     school_name VARCHAR(30) NOT NULL,
     school_address VARCHAR(255) NOT NULL,
     school_contact_number VARCHAR(20) NOT NULL,
+    school_code INT NOT NULL,
     school_password VARCHAR(255) NOT NULL,
     school_admin_name VARCHAR(30) NOT NULL,
     school_admin_phone_number VARCHAR(20) NOT NULL,
