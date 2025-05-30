@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `school` (
     # 당당자명(학교 관리자명)
     # 당당자 연락처(학교 관리자 연락처)
     # 담당자 이메일 >> 학교 코드 전송
+    -- 추가 application_limited_day DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -85,15 +86,15 @@ CREATE TABLE IF NOT EXISTS `subject` (
 );
 
 -- 교실
-CREATE TABLE IF NOT EXISTS `classroom` (
-    classroom_id INT PRIMARY KEY AUTO_INCREMENT,
-    class_number VARCHAR(10) NOT NULL,
-    capacity INT NOT NULL,
-    is_available BOOLEAN DEFAULT TRUE,
-    location VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE IF NOT EXISTS `classroom` (
+--     classroom_id INT PRIMARY KEY AUTO_INCREMENT,
+--     class_number VARCHAR(10) NOT NULL,
+--     capacity INT NOT NULL,
+--     is_available BOOLEAN DEFAULT TRUE,
+--     location VARCHAR(50) NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 -- 강의: 시간표 포함, 과목 실제 운영
 CREATE TABLE IF NOT EXISTS `lecture` (
@@ -121,7 +122,6 @@ CREATE TABLE IF NOT EXISTS `course_registration` (
     lecture_id INT NOT NULL,
     academic_year YEAR NOT NULL,
     semester VARCHAR(10) NOT NULL,
-    registration_status ENUM('registered','cancelled') DEFAULT 'registered',
     approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     approval_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -136,18 +136,10 @@ CREATE TABLE IF NOT EXISTS `course_history` (
     lecture_id INT,
     academic_year YEAR NOT NULL,
     semester VARCHAR(10) NOT NULL,
+    -- score VARCHAR(10) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (student_id, lecture_id, academic_year, semester),
-    FOREIGN KEY (student_id) REFERENCES student(student_id),
-    FOREIGN KEY (lecture_id) REFERENCES lecture(lecture_id)
-);
-
--- 시간표
-CREATE TABLE IF NOT EXISTS `schedule` (
-    student_id VARCHAR(30),
-    lecture_id INT,
-    PRIMARY KEY (student_id, lecture_id),
     FOREIGN KEY (student_id) REFERENCES student(student_id),
     FOREIGN KEY (lecture_id) REFERENCES lecture(lecture_id)
 );
@@ -167,13 +159,13 @@ CREATE TABLE IF NOT EXISTS `notice` (
 );
 
 -- 커뮤니티
-CREATE TABLE community (
-  community_id VARCHAR(30) PRIMARY KEY,
-  category ENUM('SCHOOL', 'COURSE', 'ENTRANCE_EXAMINATION') NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  community_content TEXT NOT NULL,
-  author_id VARCHAR(30) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (author_id) REFERENCES student(student_id)
-);
+-- CREATE TABLE community (
+--   community_id VARCHAR(30) PRIMARY KEY,
+--   category ENUM('SCHOOL', 'COURSE', 'ENTRANCE_EXAMINATION') NOT NULL,
+--   title VARCHAR(255) NOT NULL,
+--   community_content TEXT NOT NULL,
+--   author_id VARCHAR(30) NOT NULL,
+--   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   FOREIGN KEY (author_id) REFERENCES student(student_id)
+-- );
