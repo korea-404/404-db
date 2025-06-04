@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `lecture` (
 CREATE TABLE IF NOT EXISTS `course_registration` (
     registration_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     student_id VARCHAR(30) NOT NULL,
-    lecture_id INT NOT NULL,
+    lecture_id BIGINT NOT NULL,
     course_registration_academic_year YEAR NOT NULL,
     course_registration_semester VARCHAR(10) NOT NULL,
     course_registration_approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `course_registration` (
 CREATE TABLE IF NOT EXISTS `course_history` (
     course_history_id INT PRIMARY KEY,
     student_id VARCHAR(30),
-    lecture_id INT,
+    lecture_id BIGINT,
     course_history_academic_year YEAR NOT NULL,
     course_history_semester VARCHAR(10) NOT NULL,
     course_history_score VARCHAR(10) NULL,
