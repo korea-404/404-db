@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `teacher` (
     email VARCHAR(50) UNIQUE NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
     subject VARCHAR(50) NOT NULL,
+    status ENUM('pending', 'approved', 'on_leave', 'retired') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (school_id) REFERENCES school(school_id)
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `student` (
     phone_number VARCHAR(20) NOT NULL,
     birth_date DATE NOT NULL,
     affiliation ENUM('liberal_arts', 'natural_sciences') NOT NULL,
-    status ENUM('enrolled', 'not_enrolled', 'graduated') DEFAULT 'enrolled',
+    status ENUM('pending', 'approved','rejected', 'graduated') DEFAULT 'pending',
     admission_year YEAR NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
