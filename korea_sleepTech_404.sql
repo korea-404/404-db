@@ -17,13 +17,27 @@ CREATE TABLE IF NOT EXISTS email_verification (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- 이메일 검증
+CREATE TABLE IF NOT EXISTS email_verification (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    is_verified BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 학교 승인 대기 테이블
 CREATE TABLE IF NOT EXISTS school_application (
     school_application_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     school_application_status ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING',
     school_email VARCHAR(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `school_application` (
+    school_application_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	school_application_status ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING',
     school_name VARCHAR(30) NOT NULL,
     school_address VARCHAR(255) NOT NULL,
+    school_email VARCHAR(30) NOT NULL,
     school_contact_number VARCHAR(20) NOT NULL,
     school_admin_username VARCHAR(50) UNIQUE NOT NULL,
     school_admin_password VARCHAR(255) NOT NULL,
@@ -108,6 +122,7 @@ CREATE TABLE IF NOT EXISTS subject (
     subject_semester VARCHAR(10) NOT NULL,
     subject_affiliation ENUM('LIBERAL_ARTS', 'NATURAL_SCIENCES') NOT NULL,
     subject_status ENUM('APPROVED', 'PENDING', 'REJECTED'),
+    subject_status ENUM('approved', 'pending', 'rejected'),
     subject_max_enrollment INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -121,7 +136,7 @@ CREATE TABLE IF NOT EXISTS lecture (
     school_id BIGINT NOT NULL,
     subject_id VARCHAR(30) NOT NULL,
     teacher_id VARCHAR(30) NOT NULL,
-    lecture_day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday') NOT NULL,
+    lecture_day_of_week ENUM('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY') NOT NULL,
     lecture_period INT NOT NULL,
     lecture_allowed_grade VARCHAR(10) NOT NULL,
     lecture_max_enrollment INT NOT NULL,
